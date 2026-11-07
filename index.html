@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -94,6 +93,8 @@ button {cursor:pointer}
   font-weight:bold;
   margin-top:12px;
   overflow-wrap:anywhere;
+  -webkit-user-select:none;
+  user-select:none;
 }
 
 .primary {
@@ -133,6 +134,8 @@ button {cursor:pointer}
   font-size:18px;
   font-weight:bold;
   overflow-wrap:anywhere;
+  -webkit-user-select:none;
+  user-select:none;
 }
 
 .income {color:var(--green)}
@@ -228,6 +231,8 @@ h2 {font-size:18px;margin:0}
   font-size:13px;
   font-weight:bold;
   white-space:nowrap;
+  -webkit-user-select:none;
+  user-select:none;
 }
 
 .item-actions {
@@ -572,7 +577,7 @@ function today() {
 
 function money(n) {
   return 'Rp' + Math.round(Number(n)||0)
-    .toLocaleString('id-ID').replace(/\./g,'').replace(/,/g,'');
+    .toLocaleString('id-ID');
 }
 
 function readStore() {
