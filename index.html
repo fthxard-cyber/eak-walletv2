@@ -6,6 +6,11 @@
 <meta name="theme-color" content="#f7f1e8">
 <title>EAK Wallet</title>
 
+<!-- Konfigurasi agar bisa diinstal sebagai PWA Fullscreen -->
+<link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22EAK%20Wallet%22%2C%22short_name%22%3A%22EAK%20Wallet%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23f7f1e8%22%2C%22theme_color%22%3A%22%23f7f1e8%22%7D">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 <style>
 :root {
   --bg:#f7f1e8;
@@ -638,10 +643,8 @@ function render() {
     .filter(t => t.type === 'out')
     .reduce((s,t) => s+t.amount,0);
 
-  // Saldo keseluruhan tidak ikut reset bulanan.
   $('balance').textContent = money(incomeAll-expenseAll);
 
-  // Ringkasan hanya menghitung bulan berjalan.
   const thisMonth = today().slice(0,7);
 
   const monthRows = transactions.filter(t =>
