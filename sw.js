@@ -5,8 +5,8 @@ const FILES = [
   "/eak-walletv2/",
   "/eak-walletv2/index.html",
   "/eak-walletv2/manifest.json",
-  "/eak-walletv2/icon-192.png",
-  "/eak-walletv2/icon-512.png"
+  "/eak-walletv2/icon-192-1.png",
+  "/eak-walletv2/icon-512-1.png"
 ];
 
 self.addEventListener("install", event => {
