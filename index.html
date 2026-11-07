@@ -3,637 +3,328 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f8fafc">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08152e">
 <title>EAK Wallet</title>
-<link rel="manifest" href="manifest.webmanifest">
-
 <style>
 :root {
-    --bg-color: #f8fafc;
-    --card-bg: #ffffff;
-    --text-primary: #0f172a;
-    --text-secondary: #64748b;
-    --primary: #0f172a;
-    --primary-hover: #1e293b;
-    --border-color: #e2e8f0;
-    --green: #059669;
-    --red: #dc2626;
+  --bg:#08152e;
+  --card:#102344;
+  --blue:#2563eb;
+  --text:#f8fafc;
+  --muted:#9aabc5;
+  --border:#243b60;
+  --green:#34d399;
+  --red:#fb7185;
 }
-
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:20px 16px;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
 }
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg-color);
-    color: var(--text-primary);
-    margin: 0;
-    padding: 16px;
-    display: flex;
-    justify-content: center;
+.container{max-width:480px;margin:auto}
+header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:12px 0 28px;
 }
-
-.container {
-    width: 100%;
-    max-width: 480px;
+.logo{
+  width:45px;height:45px;
+  border-radius:14px;
+  background:#2563eb;
+  display:grid;place-items:center;
+  font-weight:bold;font-size:23px;
+  color:white;
 }
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    gap: 10px;
+.brand{font-size:20px;font-weight:bold}
+.subtitle{font-size:12px;color:var(--muted);margin-top:4px}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:22px;
+  margin-bottom:18px;
 }
-
-.profile-area {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.balance-label{
+  color:var(--muted);
+  font-size:13px;
+  letter-spacing:1px;
 }
-
-.profile-img {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--border-color);
+.balance{
+  font-size:30px;
+  font-weight:bold;
+  margin:15px 0 5px;
+  overflow-wrap:anywhere;
 }
-
-.app-title {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    margin: 0;
+.balance-info{font-size:12px;color:var(--muted)}
+.section-title{
+  font-size:17px;
+  font-weight:bold;
+  margin-bottom:18px;
 }
-
-.app-subtitle {
-    font-size: 10px;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-    margin: 2px 0 0;
+label{
+  display:block;
+  font-size:13px;
+  color:var(--muted);
+  margin:14px 0 8px;
 }
-
-.badge {
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    border: 1px solid var(--border-color);
-    padding: 6px 10px;
-    border-radius: 20px;
-    background: var(--card-bg);
-    white-space: nowrap;
+input{
+  width:100%;
+  padding:15px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#091a35;
+  color:white;
+  font-size:16px;
+  outline:none;
 }
-
-.card-balance,
-.card-form {
-    background: var(--card-bg);
-    padding: 24px;
-    border-radius: 24px;
-    box-shadow: 0 4px 20px rgba(0,0,0,.03);
-    border: 1px solid var(--border-color);
+input:focus{border-color:#3b82f6}
+button{
+  border:0;
+  border-radius:12px;
+  padding:14px;
+  font-size:14px;
+  font-weight:bold;
+  cursor:pointer;
 }
-
-.card-balance {
-    margin-bottom: 20px;
+.primary{
+  width:100%;
+  background:var(--blue);
+  color:white;
+  margin-top:18px;
 }
-
-.balance-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    letter-spacing: .5px;
-    text-transform: uppercase;
+.primary:active{opacity:.8}
+.history-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:15px 0;
+  border-bottom:1px solid var(--border);
 }
-
-.balance-amount {
-    font-size: 32px;
-    font-weight: 800;
-    margin: 8px 0 12px;
-    overflow-wrap: anywhere;
+.history-item:last-child{border-bottom:0}
+.item-name{font-weight:bold;font-size:14px}
+.item-date{font-size:11px;color:var(--muted);margin-top:6px}
+.item-right{text-align:right}
+.item-amount{font-weight:bold;color:var(--green);font-size:14px}
+.delete{
+  background:#402039;
+  color:var(--red);
+  padding:7px 10px;
+  font-size:11px;
+  margin-top:7px;
 }
-
-.balance-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    color: var(--green);
-    font-weight: 500;
+.empty{
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  padding:25px 5px;
 }
-
-.icon-box {
-    background: #f1f5f9;
-    padding: 10px;
-    border-radius: 12px;
+.reset{
+  width:100%;
+  color:var(--red);
+  background:#351d35;
+  border:1px solid #63304c;
+  margin-top:5px;
 }
-
-.card-form {
-    margin-bottom: 24px;
-}
-
-.section-title,
-.history-title {
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.section-title {
-    margin-bottom: 16px;
-}
-
-.form-group {
-    margin-bottom: 16px;
-}
-
-.form-label {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: .5px;
-    display: block;
-    margin-bottom: 8px;
-}
-
-.form-input {
-    width: 100%;
-    padding: 14px 16px;
-    border-radius: 14px;
-    border: 1px solid var(--border-color);
-    background: #f8fafc;
-    font-size: 14px;
-    outline: none;
-}
-
-.form-input:focus {
-    border-color: var(--primary);
-    background: white;
-}
-
-.btn-submit {
-    width: 100%;
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 16px;
-    border-radius: 14px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.btn-submit:hover {
-    background: var(--primary-hover);
-}
-
-.history-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    gap: 8px;
-}
-
-.transaction-count {
-    font-size: 11px;
-    color: var(--text-secondary);
-    font-weight: 600;
-}
-
-.month-section {
-    margin-bottom: 16px;
-}
-
-.month-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: .5px;
-}
-
-.history-card {
-    background: white;
-    padding: 16px;
-    border-radius: 16px;
-    border: 1px solid var(--border-color);
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-}
-
-.history-info {
-    min-width: 0;
-}
-
-.history-info .desc {
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 4px;
-    overflow-wrap: anywhere;
-}
-
-.history-info .date {
-    font-size: 11px;
-    color: var(--text-secondary);
-}
-
-.history-right {
-    text-align: right;
-    flex-shrink: 0;
-}
-
-.history-amount {
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--green);
-    white-space: nowrap;
-    margin-bottom: 8px;
-}
-
-.btn-delete {
-    background: #fef2f2;
-    color: var(--red);
-    border: none;
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-size: 10px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.btn-reset {
-    background: #fef2f2;
-    color: var(--red);
-    border: 1px solid #fecaca;
-    padding: 7px 10px;
-    border-radius: 10px;
-    font-size: 10px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.empty-state {
-    background: white;
-    padding: 24px;
-    border-radius: 20px;
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 13px;
-    border: 1px solid var(--border-color);
-}
-
-.footer-note {
-    text-align: center;
-    font-size: 10px;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-    margin-top: 30px;
-    text-transform: uppercase;
+footer{
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  padding:18px;
 }
 </style>
 </head>
-
 <body>
 <div class="container">
 
-    <div class="header">
-        <div class="profile-area">
-            <img src="profil.jpg"
-                 alt="Logo"
-                 class="profile-img"
-                 onerror="this.onerror=null;this.src='icons/icon-192.png'">
+<header>
+  <div class="logo">E</div>
+  <div>
+    <div class="brand">EAK WALLET</div>
+    <div class="subtitle">Personal Savings</div>
+  </div>
+</header>
 
-            <div>
-                <h1 class="app-title">EAK WALLET</h1>
-                <p class="app-subtitle">SAVE • TRACK • GROW</p>
-            </div>
-        </div>
-        <div class="badge">ARCTIC WHITE</div>
-    </div>
+<div class="card">
+  <div class="balance-label">TOTAL TABUNGAN</div>
+  <div class="balance" id="total">Rp 0</div>
+  <div class="balance-info">Seluruh simpanan kamu</div>
+</div>
 
-    <div class="card-balance">
-        <div class="balance-label">Total Tabungan</div>
-        <div class="balance-amount" id="totalBalance">Rp 0</div>
-        <div class="balance-footer">
-            <span>🟢 Your savings, your future.</span>
-            <div class="icon-box">💳</div>
-        </div>
-    </div>
+<div class="card">
+  <div class="section-title">Tambah Tabungan</div>
 
-    <div class="card-form">
-        <div class="section-title">Tambah Tabungan</div>
+  <form id="form">
+    <label for="amount">Nominal tabungan (Rp)</label>
+    <input
+      id="amount"
+      type="text"
+      inputmode="numeric"
+      placeholder="Contoh: 50000"
+      required
+    >
 
-        <div class="form-group">
-            <label class="form-label" for="nominalInput">
-                Nominal Tabungan
-            </label>
-            <input
-                type="number"
-                id="nominalInput"
-                class="form-input"
-                placeholder="Masukkan nominal (Rp)"
-                min="1"
-                step="1"
-                inputmode="numeric">
-        </div>
+    <label for="note">Keterangan</label>
+    <input
+      id="note"
+      type="text"
+      placeholder="Contoh: Tabungan harian"
+      maxlength="60"
+    >
 
-        <div class="form-group">
-            <label class="form-label" for="keteranganInput">
-                Keterangan
-            </label>
-            <input
-                type="text"
-                id="keteranganInput"
-                class="form-input"
-                placeholder="Contoh: Tabungan hari ini"
-                maxlength="100">
-        </div>
+    <button class="primary" type="submit">
+      + SIMPAN TABUNGAN
+    </button>
+  </form>
+</div>
 
-        <button class="btn-submit" onclick="tambahTransaksi()">
-            + SIMPAN TABUNGAN
-        </button>
-    </div>
+<div class="card">
+  <div class="section-title">Riwayat Tabungan</div>
+  <div id="history"></div>
+</div>
 
-    <div class="history-header">
-        <div>
-            <div class="history-title">Riwayat Transaksi</div>
-            <div class="transaction-count" id="txCount">
-                0 TRANSAKSI
-            </div>
-        </div>
+<button class="reset" onclick="resetSavings()">
+  RESET SELURUH TABUNGAN
+</button>
 
-        <button class="btn-reset" onclick="resetTabungan()">
-            RESET TABUNGAN
-        </button>
-    </div>
+<footer>EAK WALLET © 2026</footer>
 
-    <div id="historyContainer">
-        <div class="empty-state">
-            Belum ada tabungan. Yuk mulai menabung!
-        </div>
-    </div>
-
-    <div class="footer-note">
-        EAK WALLET • PERSONAL SAVINGS
-    </div>
 </div>
 
 <script>
-const STORAGE_KEY = 'eak_transactions';
+const STORAGE_KEY = "eak_wallet_savings_v1";
 
-function loadTransactions() {
-    try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        const data = saved ? JSON.parse(saved) : [];
+let savings = [];
 
-        return Array.isArray(data) ? data.filter(tx =>
-            tx &&
-            Number.isFinite(Number(tx.nominal)) &&
-            Number(tx.nominal) > 0
-        ) : [];
-
-    } catch (error) {
-        alert('Data tabungan tidak dapat dibaca.');
-        return [];
-    }
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  savings = saved ? JSON.parse(saved) : [];
+  if (!Array.isArray(savings)) savings = [];
+} catch(e) {
+  savings = [];
 }
 
-let transactions = loadTransactions();
+const amountInput = document.getElementById("amount");
 
-function formatRupiah(angka) {
-    return 'Rp ' + Math.round(Number(angka)).toString();
+amountInput.addEventListener("input", function(){
+  this.value = this.value.replace(/[^0-9]/g,"");
+});
+
+function saveData(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(savings));
 }
 
-function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, function(char) {
-        return {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        }[char];
-    });
+function rupiah(number){
+  return "Rp " + String(number);
 }
 
-function getMonthYear(date) {
-    return date.toLocaleDateString('id-ID', {
-        month: 'long',
-        year: 'numeric'
-    });
+function render(){
+  const total = savings.reduce(
+    (sum,item) => sum + Number(item.amount), 0
+  );
+
+  document.getElementById("total").textContent =
+    rupiah(total);
+
+  const history = document.getElementById("history");
+
+  if(savings.length === 0){
+    history.innerHTML =
+      '<div class="empty">Belum ada tabungan.<br>Yuk mulai menabung!</div>';
+    return;
+  }
+
+  history.innerHTML = "";
+
+  [...savings].reverse().forEach(item => {
+    const row = document.createElement("div");
+    row.className = "history-item";
+
+    const left = document.createElement("div");
+    const name = document.createElement("div");
+    name.className = "item-name";
+    name.textContent = item.note || "Tabungan";
+
+    const date = document.createElement("div");
+    date.className = "item-date";
+    date.textContent = item.date;
+
+    left.append(name,date);
+
+    const right = document.createElement("div");
+    right.className = "item-right";
+
+    const value = document.createElement("div");
+    value.className = "item-amount";
+    value.textContent = "+" + rupiah(item.amount);
+
+    const del = document.createElement("button");
+    del.className = "delete";
+    del.textContent = "Hapus";
+    del.onclick = () => deleteSaving(item.id);
+
+    right.append(value,del);
+    row.append(left,right);
+    history.append(row);
+  });
 }
 
-function getFormattedDate(date) {
-    return date.toLocaleDateString('id-ID', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-    });
-}
+document.getElementById("form").addEventListener(
+  "submit", function(e){
+    e.preventDefault();
 
-function saveTransactions() {
-    try {
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(transactions)
-        );
-        return true;
-    } catch (error) {
-        alert('Gagal menyimpan data. Penyimpanan perangkat mungkin penuh.');
-        return false;
-    }
-}
+    const amount = Number(amountInput.value);
+    const note = document.getElementById("note").value.trim();
 
-function tambahTransaksi() {
-    const nominalInput = document.getElementById('nominalInput');
-    const keteranganInput = document.getElementById('keteranganInput');
-
-    const nominal = Number(nominalInput.value);
-    const keterangan = keteranganInput.value.trim();
-
-    if (
-        !nominalInput.value ||
-        !Number.isSafeInteger(nominal) ||
-        nominal <= 0
-    ) {
-        alert('Masukkan nominal tabungan yang valid!');
-        nominalInput.focus();
-        return;
-    }
-
-    const now = new Date();
-
-    const newTx = {
-        id: Date.now() + Math.floor(Math.random() * 1000),
-        nominal: nominal,
-        keterangan: keterangan || 'Tabungan Tanpa Keterangan',
-        date: now.toISOString()
-    };
-
-    transactions.unshift(newTx);
-
-    if (!saveTransactions()) {
-        transactions.shift();
-        return;
+    if(!Number.isSafeInteger(amount) || amount <= 0){
+      alert("Masukkan nominal tabungan yang benar.");
+      return;
     }
 
-    nominalInput.value = '';
-    keteranganInput.value = '';
-
-    renderApp();
-    alert('Tabungan berhasil disimpan!');
-}
-
-function hapusTransaksi(id) {
-    const target = transactions.find(tx => tx.id === id);
-
-    if (!target) return;
-
-    const yakin = confirm(
-        'Hapus transaksi ' + target.keterangan + ' sebesar ' +
-        formatRupiah(target.nominal) + '?'
-    );
-
-    if (!yakin) return;
-
-    const oldTransactions = [...transactions];
-
-    transactions = transactions.filter(tx => tx.id !== id);
-
-    if (!saveTransactions()) {
-        transactions = oldTransactions;
-        return;
-    }
-
-    renderApp();
-}
-
-function resetTabungan() {
-    if (transactions.length === 0) {
-        alert('Belum ada tabungan untuk direset.');
-        return;
-    }
-
-    const yakin = confirm(
-        'PERINGATAN!\n\n' +
-        'Apakah kamu yakin ingin menghapus SELURUH riwayat dan total tabungan?\n\n' +
-        'Data yang dihapus tidak dapat dikembalikan.'
-    );
-
-    if (!yakin) return;
-
-    const oldTransactions = transactions;
-    transactions = [];
-
-    if (!saveTransactions()) {
-        transactions = oldTransactions;
-        return;
-    }
-
-    renderApp();
-    alert('Seluruh tabungan berhasil direset.');
-}
-
-function renderApp() {
-    const container = document.getElementById('historyContainer');
-    const totalBalanceEl = document.getElementById('totalBalance');
-    const txCountEl = document.getElementById('txCount');
-
-    const total = transactions.reduce(
-        (acc, tx) => acc + Number(tx.nominal),
-        0
-    );
-
-    totalBalanceEl.textContent = formatRupiah(total);
-    txCountEl.textContent = transactions.length + ' TRANSAKSI';
-
-    if (transactions.length === 0) {
-        container.innerHTML =
-            '<div class="empty-state">' +
-            'Belum ada tabungan. Yuk mulai menabung!' +
-            '</div>';
-        return;
-    }
-
-    const grouped = {};
-
-    transactions.forEach(tx => {
-        const date = new Date(tx.date);
-
-        const month = !isNaN(date.getTime())
-            ? getMonthYear(date)
-            : 'Lainnya';
-
-        if (!grouped[month]) {
-            grouped[month] = [];
-        }
-
-        grouped[month].push(tx);
+    savings.push({
+      id: Date.now() + Math.random(),
+      amount: amount,
+      note: note || "Tabungan",
+      date: new Date().toLocaleDateString("id-ID",{
+        day:"2-digit",
+        month:"long",
+        year:"numeric"
+      })
     });
 
-    let html = '';
+    saveData();
+    render();
 
-    for (const [month, txs] of Object.entries(grouped)) {
-        html += `
-            <div class="month-section">
-                <div class="month-label">
-                    ${escapeHTML(month)}
-                </div>
-        `;
+    this.reset();
+    alert("Tabungan berhasil disimpan!");
+  }
+);
 
-        txs.forEach(tx => {
-            const date = new Date(tx.date);
+function deleteSaving(id){
+  if(!confirm("Hapus catatan tabungan ini?")) return;
 
-            const formattedDate = !isNaN(date.getTime())
-                ? getFormattedDate(date)
-                : 'Tanggal tidak tersedia';
-
-            const safeId = Number(tx.id);
-
-            html += `
-                <div class="history-card">
-                    <div class="history-info">
-                        <div class="desc">
-                            ${escapeHTML(tx.keterangan || 'Tabungan')}
-                        </div>
-                        <div class="date">
-                            ${escapeHTML(formattedDate)}
-                        </div>
-                    </div>
-
-                    <div class="history-right">
-                        <div class="history-amount">
-                            + ${formatRupiah(tx.nominal)}
-                        </div>
-
-                        <button
-                            class="btn-delete"
-                            onclick="hapusTransaksi(${safeId})">
-                            HAPUS
-                        </button>
-                    </div>
-                </div>
-            `;
-        });
-
-        html += '</div>';
-    }
-
-    container.innerHTML = html;
+  savings = savings.filter(item => item.id !== id);
+  saveData();
+  render();
 }
 
-renderApp();
+function resetSavings(){
+  if(!confirm(
+    "Yakin ingin menghapus SELURUH tabungan dan riwayat? Tindakan ini tidak bisa dibatalkan."
+  )) return;
+
+  savings = [];
+  saveData();
+  render();
+  alert("Seluruh tabungan berhasil direset.");
+}
+
+render();
 </script>
-
 </body>
 </html>
