@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "eak-wallet-v1";
+const CACHE_NAME = "eak-wallet-v2";
 
 const FILES = [
   "/eak-walletv2/",
@@ -15,6 +15,7 @@ self.addEventListener("install", event => {
       cache.addAll(FILES)
     )
   );
+
   self.skipWaiting();
 });
 
@@ -22,11 +23,16 @@ self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys.filter(key => key !== CACHE_NAME)
+        keys
+          .filter(key =>
+            key.startsWith("eak-wallet-") &&
+            key !== CACHE_NAME
+          )
           .map(key => caches.delete(key))
       )
     )
   );
+
   self.clients.claim();
 });
 
