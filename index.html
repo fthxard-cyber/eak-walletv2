@@ -327,5 +327,15 @@ function resetSavings(){
 
 render();
 </script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("EAK Wallet siap"))
+      .catch(error => console.error(error));
+  });
+}
+</script>
 </body>
 </html>
