@@ -1,15 +1,16 @@
 
+
 {
   "id": "/eak-walletv2/",
   "name": "EAK Wallet",
   "short_name": "EAK Wallet",
-  "description": "Aplikasi tabungan pribadi EAK Wallet",
+  "description": "Aplikasi pencatat keuangan pribadi EAK Wallet",
   "start_url": "/eak-walletv2/",
   "scope": "/eak-walletv2/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#08152e",
-  "theme_color": "#08152e",
+  "background_color": "#f7f1e8",
+  "theme_color": "#f7f1e8",
   "lang": "id",
   "icons": [
     {
@@ -26,3 +27,4 @@
     }
   ]
 }
+
