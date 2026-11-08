@@ -1,368 +1,625 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EAK Wallet - Dark Minimalist UI</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            bg: '#0a0a0c',
-                            card: '#141418',
-                            border: '#24242c',
-                            accent: '#10b981',
-                            danger: '#f43f5e',
-                            muted: '#8e8e9e'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: #0a0a0c;
-            color: #f3f4f6;
-            font-family: 'Inter', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17191d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<title>EAK Wallet</title>
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0c;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #24242c;
-            border-radius: 9999px;
-        }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-        /* Glassmorphism Effect for Modal Backdrop */
-        .glass-overlay {
-            background: rgba(10, 10, 12, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
+body {
+  background: #17191d;
+  color: #f4f5f7;
+  font-family: Arial, sans-serif;
+  padding: 22px 18px 35px;
+}
 
-        /* Card Glow subtle hover effect */
-        .card-glow {
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .card-glow:hover {
-            border-color: #32323e;
-            transform: translateY(-1px);
-        }
+.app {
+  max-width: 480px;
+  margin: auto;
+}
 
-        /* Modal scale animation */
-        .modal-enter {
-            opacity: 0;
-            transform: scale(0.92) translateY(10px);
-        }
-        .modal-enter-active {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            transition: opacity 0.2s ease-out, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .modal-exit {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-        .modal-exit-active {
-            opacity: 0;
-            transform: scale(0.95) translateY(8px);
-            transition: opacity 0.15s ease-in, transform 0.15s ease-in;
-        }
-    </style>
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.logo {
+  width: 43px;
+  height: 43px;
+  background: #fff;
+  color: #17191d;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.brand {
+  font-size: 19px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+.subtitle {
+  color: #9298a1;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+h2 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.balance-card {
+  background: linear-gradient(145deg, #30343b, #22252a);
+  border: 1px solid #42464e;
+  border-radius: 20px;
+  padding: 23px;
+  margin-bottom: 25px;
+}
+
+.muted {
+  color: #a7adb6;
+  font-size: 12px;
+}
+
+.balance {
+  font-size: 29px;
+  font-weight: bold;
+  margin: 12px 0 20px;
+  overflow-wrap: anywhere;
+}
+
+.balance-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.balance-bottom strong {
+  display: block;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.section {
+  margin-bottom: 27px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.action {
+  border: 1px solid #393d45;
+  background: #22252a;
+  border-radius: 15px;
+  padding: 17px 12px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.action:active {
+  background: #343941;
+}
+
+.action span {
+  display: block;
+  font-size: 22px;
+  margin-bottom: 9px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.summary-card {
+  background: #22252a;
+  border: 1px solid #393d45;
+  padding: 16px;
+  border-radius: 15px;
+}
+
+.summary-card strong {
+  display: block;
+  font-size: 15px;
+  margin-top: 9px;
+  overflow-wrap: anywhere;
+}
+
+.income {
+  color: #75d6a1;
+}
+
+.expense {
+  color: #f08c8c;
+}
+
+.history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.transaction {
+  background: #22252a;
+  border: 1px solid #393d45;
+  border-radius: 14px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.transaction-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.transaction-date {
+  color: #9298a1;
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+.transaction-right {
+  text-align: right;
+}
+
+.transaction-amount {
+  font-size: 13px;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.delete {
+  background: transparent;
+  color: #9298a1;
+  border: none;
+  font-size: 12px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.empty {
+  text-align: center;
+  color: #9298a1;
+  padding: 30px 10px;
+  font-size: 13px;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+}
+
+.filter {
+  border: 1px solid #393d45;
+  color: #a7adb6;
+  background: #22252a;
+  padding: 7px 13px;
+  border-radius: 20px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.filter.active {
+  color: #17191d;
+  background: #f4f5f7;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 420px;
+  background: #25282e;
+  border: 1px solid #444952;
+  border-radius: 20px;
+  padding: 22px;
+}
+
+.modal-box h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  color: #a7adb6;
+  font-size: 12px;
+  margin: 14px 0 8px;
+}
+
+input {
+  width: 100%;
+  background: #17191d;
+  color: white;
+  border: 1px solid #454a53;
+  border-radius: 11px;
+  padding: 14px;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #c5cbd4;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 13px;
+  border-radius: 11px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cancel {
+  background: #393d45;
+  color: white;
+}
+
+.save {
+  background: #f4f5f7;
+  color: #17191d;
+}
+
+footer {
+  text-align: center;
+  color: #777e88;
+  font-size: 10px;
+  margin-top: 35px;
+}
+</style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-3 sm:p-6 select-none">
 
-    <!-- Mobile Frame Container -->
-    <div class="w-full max-w-md bg-[#0d0d11] rounded-[32px] border border-[#1e1e26] shadow-2xl overflow-hidden relative min-h-[780px] flex flex-col">
-        
-        <!-- Status Bar Fake (Aesthetic Mobile Feel) -->
-        <div class="pt-3 px-6 pb-1 flex justify-between items-center text-xs text-brand-muted font-medium">
-            <span>09:41</span>
-            <div class="flex items-center space-x-2">
-                <i class="fa-solid font-bold fa-signal"></i>
-                <i class="fa-solid font-bold fa-wifi"></i>
-                <i class="fa-solid font-bold fa-battery-full text-brand-accent"></i>
-            </div>
-        </div>
+<body>
+<div class="app">
 
-        <!-- Header Bar -->
-        <div class="px-6 py-4 flex items-center justify-between border-b border-brand-border/40">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-emerald-900/30 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shadow-lg shadow-emerald-950/40">
-                    <i class="fa-solid fa-wallet text-sm"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-base tracking-tight text-white flex items-center gap-2">
-                        EAK Wallet 
-                        <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full font-medium">PRO</span>
-                    </h1>
-                    <p class="text-xs text-brand-muted">Pengatur Keuangan Personal</p>
-                </div>
-            </div>
-            <button class="w-9 h-9 rounded-full bg-brand-card border border-brand-border flex items-center justify-center text-brand-muted hover:text-white transition">
-                <i class="fa-regular fa-bell text-xs"></i>
-            </button>
-        </div>
+<header>
+  <div class="logo">EAK</div>
+  <div>
+    <div class="brand">EAK WALLET</div>
+    <div class="subtitle">Personal Finance</div>
+  </div>
+</header>
 
-        <!-- Main Content Area -->
-        <div class="p-5 space-y-5 flex-1 overflow-y-auto">
-
-            <!-- Summary Balance Card -->
-            <div class="bg-gradient-to-b from-[#181820] to-[#13131a] p-5 rounded-2xl border border-[#242430] shadow-xl relative overflow-hidden">
-                <div class="absolute -right-8 -top-8 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none"></div>
-                
-                <p class="text-[11px] font-semibold uppercase tracking-wider text-brand-muted mb-1">Total Saldo</p>
-                <div class="flex items-baseline justify-between mb-4">
-                    <h2 id="total-saldo" class="text-3xl font-extrabold tracking-tight text-white">Rp 422.500</h2>
-                    <span class="text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded-lg flex items-center gap-1 font-medium">
-                        <i class="fa-solid fa-arrow-trend-up text-[10px]"></i> +12%
-                    </span>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3 pt-4 border-t border-brand-border/60">
-                    <div class="bg-[#0f0f14]/60 p-3 rounded-xl border border-brand-border/30">
-                        <div class="flex items-center gap-2 text-xs text-brand-muted mb-1">
-                            <span class="w-2 h-2 rounded-full bg-brand-accent"></span>
-                            Total Masuk
-                        </div>
-                        <p id="total-masuk" class="text-sm font-semibold text-emerald-400">Rp 475.000</p>
-                    </div>
-                    <div class="bg-[#0f0f14]/60 p-3 rounded-xl border border-brand-border/30">
-                        <div class="flex items-center gap-2 text-xs text-brand-muted mb-1">
-                            <span class="w-2 h-2 rounded-full bg-brand-danger"></span>
-                            Total Keluar
-                        </div>
-                        <p id="total-keluar" class="text-sm font-semibold text-rose-400">Rp 52.500</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Action Buttons Section -->
-            <div>
-                <p class="text-xs font-medium text-brand-muted mb-2.5 px-1">Tambah Transaksi</p>
-                <div class="grid grid-cols-2 gap-3">
-                    <button onclick="addTransactionPrompt('masuk')" class="card-glow bg-brand-card p-3.5 rounded-2xl border border-brand-border flex items-center justify-center gap-2.5 group hover:border-emerald-500/40 active:scale-95">
-                        <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-black transition">
-                            <i class="fa-solid fa-plus text-xs"></i>
-                        </div>
-                        <span class="text-xs font-semibold text-gray-200">Uang Masuk</span>
-                    </button>
-                    <button onclick="addTransactionPrompt('keluar')" class="card-glow bg-brand-card p-3.5 rounded-2xl border border-brand-border flex items-center justify-center gap-2.5 group hover:border-rose-500/40 active:scale-95">
-                        <div class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center group-hover:bg-rose-500 group-hover:text-white transition">
-                            <i class="fa-solid fa-minus text-xs"></i>
-                        </div>
-                        <span class="text-xs font-semibold text-gray-200">Uang Keluar</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Transaction History Filter & List -->
-            <div class="space-y-3">
-                <div class="flex items-center justify-between px-1">
-                    <p class="text-xs font-medium text-brand-muted">Riwayat Transaksi</p>
-                    <div class="flex bg-brand-card border border-brand-border rounded-lg p-0.5 text-[11px]">
-                        <button class="px-2.5 py-1 rounded-md bg-[#22222a] text-white font-medium">Semua</button>
-                        <button class="px-2.5 py-1 rounded-md text-brand-muted hover:text-white">Masuk</button>
-                        <button class="px-2.5 py-1 rounded-md text-brand-muted hover:text-white">Keluar</button>
-                    </div>
-                </div>
-
-                <!-- List Items -->
-                <div id="transaction-list" class="space-y-2.5">
-                    <!-- Dynamic rendering done via JS -->
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Footer Info -->
-        <div class="py-3 px-6 bg-[#0a0a0c] border-t border-brand-border/40 text-center">
-            <p class="text-[11px] text-brand-muted">Aplikasi Keuangan &bull; EAK Wallet</p>
-        </div>
-
-        <!-- CUSTOM MODAL INPUT TRANSAKSI (Form Tambah Uang Masuk/Keluar) -->
-        <div id="input-modal" class="hidden absolute inset-0 z-50 glass-overlay flex items-center justify-center p-5">
-            <div id="input-modal-box" class="w-full max-w-xs bg-[#16161c] border border-[#2b2b36] rounded-3xl p-6 shadow-2xl shadow-black/80 modal-enter relative overflow-hidden">
-                
-                <div class="flex flex-col relative z-10">
-                    <!-- Icon & Header Title -->
-                    <div class="flex items-center gap-3 mb-4">
-                        <div id="input-modal-icon" class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div>
-                            <h3 id="input-modal-title" class="text-base font-bold text-white tracking-tight">Tambah Transaksi</h3>
-                            <p class="text-[11px] text-brand-muted">Masukkan rincian transaksi</p>
-                        </div>
-                    </div>
-
-                    <!-- Form Inputs -->
-                    <form id="transaction-form" onsubmit="handleSaveTransaction(event)" class="space-y-3">
-                        <div>
-                            <label class="text-[11px] font-medium text-brand-muted block mb-1">Keterangan / Judul</label>
-                            <input type="text" id="input-title" placeholder="Contoh: Gaji, Beli Kopi" required 
-                                class="w-full bg-[#0f0f14] border border-brand-border rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition">
-                        </div>
-
-                        <div>
-                            <label class="text-[11px] font-medium text-brand-muted block mb-1">Nominal (Rp)</label>
-                            <input type="number" id="input-amount" placeholder="0" required min="1"
-                                class="w-full bg-[#0f0f14] border border-brand-border rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition">
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-2.5 pt-2">
-                            <button type="button" onclick="closeInputModal()" class="w-full py-2.5 px-3 rounded-xl border border-brand-border bg-[#1c1c24] hover:bg-[#242430] text-gray-300 font-semibold text-xs transition active:scale-95">
-                                Batal
-                            </button>
-                            <button type="submit" id="btn-submit-form" class="w-full py-2.5 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs shadow-lg shadow-emerald-950/50 transition active:scale-95">
-                                Simpan
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- CUSTOM LUXURY MODAL DIALOG (Replacing Browser Confirm) -->
-        <div id="custom-modal" class="hidden absolute inset-0 z-50 glass-overlay flex items-center justify-center p-5">
-            <div id="modal-box" class="w-full max-w-xs bg-[#16161c] border border-[#2b2b36] rounded-3xl p-6 shadow-2xl shadow-black/80 modal-enter relative overflow-hidden">
-                
-                <!-- Ambient Subtle Red Accent Blur -->
-                <div class="absolute -top-12 -left-12 w-28 h-28 bg-rose-500/15 rounded-full blur-2xl pointer-events-none"></div>
-
-                <div class="flex flex-col items-center text-center relative z-10">
-                    
-                    <!-- Icon Warning Header -->
-                    <div class="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mb-4 shadow-inner">
-                        <i class="fa-solid fa-trash-can text-xl"></i>
-                    </div>
-
-                    <!-- Modal Title -->
-                    <h3 class="text-lg font-bold text-white mb-2 tracking-tight">Hapus Transaksi?</h3>
-
-                    <!-- Modal Body Description -->
-                    <p class="text-xs text-brand-muted leading-relaxed mb-6">
-                        Apakah kamu yakin ingin menghapus transaksi <span id="modal-item-name" class="font-semibold text-gray-200">"Beli vicks inhaler"</span> sebesar <span id="modal-item-amount" class="font-semibold text-rose-400">Rp 22.500</span>? Tindakan ini tidak dapat dibatalkan.
-                    </p>
-
-                    <!-- Modal Action Buttons -->
-                    <div class="grid grid-cols-2 gap-3 w-full">
-                        <button id="btn-cancel-modal" class="w-full py-3 px-4 rounded-xl border border-brand-border bg-[#1c1c24] hover:bg-[#242430] text-gray-300 font-semibold text-xs transition active:scale-95">
-                            Batal
-                        </button>
-                        <button id="btn-confirm-modal" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 text-white font-semibold text-xs shadow-lg shadow-rose-950/50 transition active:scale-95 flex items-center justify-center gap-1.5">
-                            <i class="fa-solid fa-trash-can text-[10px]"></i> Hapus
-                        </button>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
+<section class="balance-card">
+  <div class="muted">TOTAL SALDO</div>
+  <div class="balance" id="balance">Rp 0</div>
+  <div class="balance-bottom">
+    <div>
+      <div class="muted">Total Masuk</div>
+      <strong class="income" id="totalIncome">Rp 0</strong>
     </div>
+    <div>
+      <div class="muted">Total Keluar</div>
+      <strong class="expense" id="totalExpense">Rp 0</strong>
+    </div>
+  </div>
+</section>
 
-    <!-- JavaScript Application Logic -->
-    <script>
-        // Sample Transactions Data (Matching Screenshot)
-        let transactions = [
-            { id: 1, title: 'Uang saku', amount: 275000, type: 'masuk', date: '2026-11-08' },
-            { id: 2, title: 'Beli jajan', amount: 30000, type: 'keluar', date: '2026-11-08' },
-            { id: 3, title: 'Transaksi', amount: 200000, type: 'masuk', date: '2026-11-07' },
-            { id: 4, title: 'Beli vicks inhaler', amount: 22500, type: 'keluar', date: '2026-11-07' }
-        ];
+<section class="section">
+  <h2>Tambah Transaksi</h2>
+  <div class="actions">
+    <button class="action" onclick="openForm('in')">
+      <span class="income">＋</span>
+      Uang Masuk
+    </button>
+    <button class="action" onclick="openForm('out')">
+      <span class="expense">－</span>
+      Uang Keluar
+    </button>
+  </div>
+</section>
 
-        let pendingDeleteId = null;
-        let currentTransactionType = 'masuk';
+<section class="section">
+  <h2>Ringkasan Bulan Ini</h2>
+  <div class="summary">
+    <div class="summary-card">
+      <div class="muted">Uang Masuk</div>
+      <strong class="income" id="monthIncome">Rp 0</strong>
+    </div>
+    <div class="summary-card">
+      <div class="muted">Uang Keluar</div>
+      <strong class="expense" id="monthExpense">Rp 0</strong>
+    </div>
+  </div>
+</section>
 
-        // Helper to format currency
-        function formatRupiah(number) {
-            return 'Rp ' + number.toLocaleString('id-ID');
-        }
+<section class="section">
+  <div class="history-head">
+    <h2 style="margin:0">Riwayat Transaksi</h2>
+  </div>
 
-        // Render List & Update Calculations
-        function renderUI() {
-            const listEl = document.getElementById('transaction-list');
-            listEl.innerHTML = '';
+  <div class="filters" style="margin-bottom:14px">
+    <button class="filter active" data-filter="all">Semua</button>
+    <button class="filter" data-filter="in">Masuk</button>
+    <button class="filter" data-filter="out">Keluar</button>
+  </div>
 
-            let totalMasuk = 0;
-            let totalKeluar = 0;
+  <div class="history-list" id="history"></div>
+</section>
 
-            transactions.forEach(item => {
-                if (item.type === 'masuk') totalMasuk += item.amount;
-                if (item.type === 'keluar') totalKeluar += item.amount;
+<footer>EAK WALLET V2 • GRAPHITE SILVER</footer>
 
-                const isIncome = item.type === 'masuk';
-                const sign = isIncome ? '+' : '-';
-                const amountClass = isIncome ? 'text-emerald-400' : 'text-rose-400';
-                const icon = isIncome ? 'fa-arrow-down-left' : 'fa-arrow-up-right';
+</div>
 
-                const card = document.createElement('div');
-                card.className = 'card-glow bg-brand-card border border-brand-border rounded-2xl p-3.5 flex items-center justify-between group';
-                card.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-xl ${isIncome ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'} flex items-center justify-center text-xs">
-                            <i class="fa-solid ${icon}"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs font-semibold text-gray-200">${item.title}</p>
-                            <p class="text-[10px] text-brand-muted">${item.date}</p>
-                        </div>
-                    </div>
-                    <div class="text-right flex flex-col items-end">
-                        <p class="text-xs font-bold ${amountClass}">${sign} ${formatRupiah(item.amount)}</p>
-                        <button onclick="askDeleteTransaction(${item.id})" class="mt-1 text-[11px] text-brand-muted hover:text-rose-400 transition flex items-center gap-1 opacity-80 group-hover:opacity-100">
-                            <i class="fa-regular fa-trash-can text-[10px]"></i> Hapus
-                        </button>
-                    </div>
-                `;
-                listEl.appendChild(card);
-            });
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h2 id="formTitle">Tambah Transaksi</h2>
 
-            const totalSaldo = totalMasuk - totalKeluar;
-            document.getElementById('total-saldo').textContent = formatRupiah(totalSaldo);
-            document.getElementById('total-masuk').textContent = formatRupiah(totalMasuk);
-            document.getElementById('total-keluar').textContent = formatRupiah(totalKeluar);
-        }
+    <label>Nominal (Rp)</label>
+    <input id="amount" type="text" inputmode="numeric"
+      placeholder="Contoh: 150.000">
 
-        // CUSTOM INPUT MODAL CONTROLS
-        const inputModalEl = document.getElementById('input-modal');
-        const inputModalBox = document.getElementById('input-modal-box');
-        const inputModalTitle = document.getElementById('input-modal-title');
-        const inputModalIcon = document.getElementById('input-modal-icon');
-        const btnSubmitForm = document.getElementById('btn-submit-form');
+    <label>Keterangan</label>
+    <input id="description" type="text"
+      placeholder="Contoh: Uang jajan">
 
-        function addTransactionPrompt(type) {
-            currentTransactionType = type;
-            document.getElementById('transaction-form').reset();
+    <label>Tanggal</label>
+    <input id="date" type="date">
 
-            if (type === 'masuk') {
-                inputModalTitle.textContent = 'Tambah Uang Masuk';
-                inputModalIcon.className = 'w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold';
-                inputModalIcon.innerHTML = '<i class="fa-solid fa-plus"></i>';
-                btnSubmitForm.className = 'w-full py-2.5 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs shadow-lg shadow-emerald-950/50 transition active:scale-95';
-            } else {
-                inputModalTitle.textContent = 'Tambah Uang Keluar';
-   
+    <div class="modal-actions">
+      <button class="cancel" onclick="closeForm()">Batal</button>
+      <button class="save" onclick="saveTransaction()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = "eak_wallet_transactions_v1";
+
+let transactions = JSON.parse(
+  localStorage.getItem(STORAGE_KEY) || "[]"
+);
+
+let currentType = "in";
+let currentFilter = "all";
+
+const rupiah = number =>
+  "Rp " + Number(number || 0).toLocaleString("id-ID");
+
+const today = () => {
+  const d = new Date();
+  const local = new Date(
+    d.getTime() - d.getTimezoneOffset() * 60000
+  );
+  return local.toISOString().slice(0, 10);
+};
+
+function saveData() {
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(transactions)
+  );
+}
+
+function getTotals(list) {
+  let income = 0;
+  let expense = 0;
+
+  list.forEach(t => {
+    if (t.type === "in") income += Number(t.amount);
+    else expense += Number(t.amount);
+  });
+
+  return { income, expense };
+}
+
+function render() {
+  const totals = getTotals(transactions);
+
+  document.getElementById("balance").textContent =
+    rupiah(totals.income - totals.expense);
+
+  document.getElementById("totalIncome").textContent =
+    rupiah(totals.income);
+
+  document.getElementById("totalExpense").textContent =
+    rupiah(totals.expense);
+
+  const month = today().slice(0, 7);
+
+  const monthly = transactions.filter(t =>
+    String(t.date || "").slice(0, 7) === month
+  );
+
+  const monthTotals = getTotals(monthly);
+
+  document.getElementById("monthIncome").textContent =
+    rupiah(monthTotals.income);
+
+  document.getElementById("monthExpense").textContent =
+    rupiah(monthTotals.expense);
+
+  const filtered = [...transactions]
+    .filter(t => currentFilter === "all" ||
+      t.type === currentFilter)
+    .sort((a, b) =>
+      String(b.date).localeCompare(String(a.date))
+    );
+
+  const history = document.getElementById("history");
+
+  if (!filtered.length) {
+    history.innerHTML =
+      '<div class="empty">Belum ada transaksi</div>';
+    return;
+  }
+
+  history.innerHTML = filtered.map(t => {
+    const isIn = t.type === "in";
+
+    return `
+      <div class="transaction">
+        <div>
+          <div class="transaction-name">
+            ${escapeHTML(t.description || "Transaksi")}
+          </div>
+          <div class="transaction-date">${escapeHTML(t.date || "")}</div>
+        </div>
+        <div class="transaction-right">
+          <div class="transaction-amount ${isIn ? "income" : "expense"}">
+            ${isIn ? "+" : "-"} ${rupiah(t.amount)}
+          </div>
+          <button class="delete" data-delete="${escapeHTML(String(t.id))}">
+            Hapus
+          </button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[char]);
+}
+
+function openForm(type) {
+  currentType = type;
+
+  document.getElementById("formTitle").textContent =
+    type === "in" ? "Uang Masuk" : "Uang Keluar";
+
+  document.getElementById("amount").value = "";
+  document.getElementById("description").value = "";
+  document.getElementById("date").value = today();
+
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeForm() {
+  document.getElementById("modal").style.display = "none";
+}
+
+document.getElementById("amount").addEventListener(
+  "input", function() {
+    const digits = this.value.replace(/\D/g, "");
+
+    this.value = digits
+      ? Number(digits).toLocaleString("id-ID")
+      : "";
+  }
+);
+
+function saveTransaction() {
+  const amountText =
+    document.getElementById("amount").value;
+
+  const amount = Number(amountText.replace(/\D/g, ""));
+  const description =
+    document.getElementById("description").value.trim();
+  const date = document.getElementById("date").value;
+
+  if (!amount || amount <= 0) {
+    alert("Masukkan nominal yang benar.");
+    return;
+  }
+
+  if (!date) {
+    alert("Pilih tanggal transaksi.");
+    return;
+  }
+
+  transactions.push({
+    id: Date.now().toString(),
+    type: currentType,
+    amount,
+    description: description || "Transaksi",
+    date
+  });
+
+  saveData();
+  closeForm();
+  render();
+}
+
+document.getElementById("history").addEventListener(
+  "click", function(event) {
+    const button = event.target.closest("[data-delete]");
+    if (!button) return;
+
+    const id = button.dataset.delete;
+
+    if (!confirm("Hapus transaksi ini?")) return;
+
+    transactions = transactions.filter(
+      t => String(t.id) !== id
+    );
+
+    saveData();
+    render();
+  }
+);
+
+document.querySelectorAll("[data-filter]").forEach(button => {
+  button.addEventListener("click", () => {
+    currentFilter = button.dataset.filter;
+
+    document.querySelectorAll("[data-filter]")
+      .forEach(b => b.classList.remove("active"));
+
+    button.classList.add("active");
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>
+
