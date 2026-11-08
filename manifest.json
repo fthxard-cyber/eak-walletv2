@@ -1,0 +1,26 @@
+
+{
+  "name": "EAK Wallet",
+  "short_name": "EAK Wallet",
+  "description": "Personal Finance Wallet",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#17191d",
+  "theme_color": "#17191d",
+  "icons": [
+    {
+      "src": "icon-192-1.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512-1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
